@@ -1,4 +1,5 @@
 using DifferentialEquations
+using Plots
 include("./parameters.jl")
 include("force.jl")
 include("bound.jl")
@@ -7,7 +8,11 @@ include("equations.jl")
 function Mainf()
     u0 = BoundaryCondition(x_discrete)
     prob = ODEProblem(FinDiffEqua, u0, timespan, p)
-    s = solve(prob)
+    t = solve(prob)
+    solution = t[:, 1, :]
+
+    # * Plot image with Plots.jl
+    Plots.heatmap(solution)
 end
 
 Mainf()
