@@ -15,15 +15,15 @@ include("force.jl")
 function FinDiffEqua(du, u, p, t)
     # N = p # 离散节点数
 
-    @inbounds for i = 1:N
+    @inbounds for i = 3:N-2
         x = x_discrete[i]
         # * u[:, 1] = u
         # * u[:, 2] = v
         # * du[:, 1] = ∂u/∂t = v
         # * du[:, 2] = ∂v/∂t
         du[i, 1] = u[i, 2]
-        du[i, 2] = Force(x, t)- u[i, 2] -hx^(-4)*(
-            u[i+2, 1]-4*u[i+1, 1]+6*[i, 1]-4*u[i-1, 1]+u[i-2, 1]
+        du[i, 2] = Force(x, t) - u[i, 2] - hx^(-4)*(
+            u[i+2, 1]-4*u[i+1, 1]+6*u[i, 1]-4*u[i-1, 1]+u[i-2, 1]
             )
     end
 end
