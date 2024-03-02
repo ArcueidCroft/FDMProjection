@@ -1,0 +1,5 @@
+include("parameters.jl")
+function force(x, t)
+    p = sin(pi*x/l)
+    return (pi/l)^4*t^2*p+2*t*p+2*p
+end
