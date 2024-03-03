@@ -55,6 +55,15 @@ function Mainf()
         u[nx-1,j] = (2/5) * (2 * u[nx-2,j] - 0.5 * u[nx-3,j])
     end
 
+    # * @view版本
+    # ! bug 还需修改
+    # @inbounds for j = 2:nt
+    #     fill!(@view(v[3:nx-2,j]), (1-h_t) * v[3:nx-2,j-1] + h_t/(h_x^4) * B * u[:,j-1] + h_t * F[3:nx-2,j])
+    #     fill!(@view(u[3:nx-2,j]), h_t * v[3:nx-2,j-1] + u[3:nx-2,j-1])
+    #     fill!(@view(u[2,j]), (2/5) * (2 * u[3,j] - 0.5 * u[4,j]))
+    #     fill!(@view(u[nx-1,j]), (2/5) * (2 * u[nx-2,j] - 0.5 * u[nx-3,j]))
+    # end
+
     return 0
 end
 # error_matrix=double(u-u_exact)
