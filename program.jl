@@ -6,6 +6,7 @@ include("bound.jl")
 include("equations.jl")
 
 function Mainf()
+    N, x_discrete, l, hx, timespan = GetParameters()
     u0 = BoundaryCondition(x_discrete)
     prob = ODEProblem(FinDiffEqua, u0, timespan, p)
     t = solve(prob)
