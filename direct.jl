@@ -10,6 +10,8 @@ GC.enable(false)
 
 # 网格划分
 function Mainf()
+    println("init parameters")
+    @time begin
     ll::Float64 = 2.93 # 燃料棒长度 
     tt::Float64 = 10 # 终止时间
     nx::Int = 31; 
@@ -21,26 +23,29 @@ function Mainf()
     v::Matrix{Float64} = zeros(nx,nt) # 网格点形成的一阶导数值数值解矩阵
     u_exact::Matrix{Float64} = zeros(nx,nt) # 网格点形成的精确解矩阵
     F::Matrix{Float64} = zeros(nx,nt) # 右端项矩阵
-
+    end
     # 形成精确解矩阵
     d_exact = (x,t) -> t^2*sin(pi*x/ll)
 
     # TODO 可以把这个改为广播的形式
-    @inbounds for i = 1:nx
+    println("create exact-solution")
+    @time @inbounds for i = 1:nx
         for j = 1:nt
             u_exact[i,j] = d_exact((i-1)*h_x,(j-1)*h_t)
         end
     end
 
     # 形成右端项矩阵
-    @inbounds for i = 1:nx
+    println("create Force matrix")
+    @time @inbounds for i = 1:nx
         for j = 1:nt
             F[i,j] = Force((i-1)*h_x,(j-1)*h_t,ll)
         end
     end
 
     # 形成差分矩阵
-    A = sparse(
+    println("discrete matrix")
+    @time A = sparse(
         diagm(-6*ones(nx))+
         diagm(-2 => -1*ones(nx-2)) + diagm(2 => -1*ones(nx-2))+
         diagm(-1 => 4*ones(nx-1)) + diagm(1 => 4*ones(nx-1))
@@ -48,7 +53,8 @@ function Mainf()
     B = A[3:nx-2,:]
 
     # 根据差分法求解方程
-    @inbounds for j = 2:nt
+    println("solving equations")
+    @time @inbounds for j = 2:nt
         v[3:nx-2,j] = (1-h_t) * v[3:nx-2,j-1] + h_t/(h_x^4) * B * u[:,j-1] + h_t * F[3:nx-2,j]
         u[3:nx-2,j] = h_t * v[3:nx-2,j-1] + u[3:nx-2,j-1]
         u[2,j] = (2/5) * (2 * u[3,j] - 0.5 * u[4,j])
