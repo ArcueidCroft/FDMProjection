@@ -10,7 +10,7 @@ function Mainf()
     u0 = BoundaryCondition(x_discrete)
     prob = ODEProblem(FinDiffEqua, u0, timespan, p)
     t = solve(prob)
-    solution = t[:, 2, :]
+    solution = t[:, 1, :]
 
     # * Plot image with Plots.jl
     Plots.heatmap(solution)

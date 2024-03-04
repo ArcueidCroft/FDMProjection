@@ -44,13 +44,13 @@ function Mainf()
     end
 
     # 形成差分矩阵
-    println("discrete matrix")
+    println("sparse array of discrete matrix")
     @time A = sparse(
         diagm(-6*ones(nx))+
         diagm(-2 => -1*ones(nx-2)) + diagm(2 => -1*ones(nx-2))+
         diagm(-1 => 4*ones(nx-1)) + diagm(1 => 4*ones(nx-1))
         )
-    B = A[3:nx-2,:]
+    @time B = A[3:nx-2,:]
 
     # 根据差分法求解方程
     println("solving equations")
