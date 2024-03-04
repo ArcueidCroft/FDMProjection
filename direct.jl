@@ -1,12 +1,18 @@
-# 用差分法求解方程
+# * 用差分法求解方程-Julia语言高性能版本
+# * Write by ArcueidCroft@SCU.math
+# * Email: zqy_edu@163.com
+# * Last edit: 2024.3.4 22:55
+
 include("force.jl")
 using Plots, LinearAlgebra, SparseArrays
 using BenchmarkTools
-GC.enable(false)
+
+GC.enable(false) # 不使用GC内存回收，最后再回收内存
+
 # ! 还可以继续优化
 # TODO 将前面的循环改成广播
 # TODO 稀疏数组A √
-# TODO 避免直接对大数组切片，用@view
+# TODO 避免直接对大数组切片，用@view √
 
 # 网格划分
 function Mainf()
@@ -44,7 +50,7 @@ function Mainf()
     end
 
     # 形成差分矩阵
-    println("sparse array of discrete matrix")
+    println("sparse array of difference matrix")
     @time A = sparse(
         diagm(-6*ones(nx))+
         diagm(-2 => -1*ones(nx-2)) + diagm(2 => -1*ones(nx-2))+
@@ -54,21 +60,19 @@ function Mainf()
 
     # 根据差分法求解方程
     println("solving equations")
-    @time @inbounds for j = 2:nt
-        v[3:nx-2,j] = (1-h_t) * v[3:nx-2,j-1] + h_t/(h_x^4) * B * u[:,j-1] + h_t * F[3:nx-2,j]
-        u[3:nx-2,j] = h_t * v[3:nx-2,j-1] + u[3:nx-2,j-1]
-        u[2,j] = (2/5) * (2 * u[3,j] - 0.5 * u[4,j])
-        u[nx-1,j] = (2/5) * (2 * u[nx-2,j] - 0.5 * u[nx-3,j])
-    end
-
-    # * @view版本
-    # ! bug 还需修改
-    # @inbounds for j = 2:nt
-    #     fill!(@view(v[3:nx-2,j]), (1-h_t) * v[3:nx-2,j-1] + h_t/(h_x^4) * B * u[:,j-1] + h_t * F[3:nx-2,j])
-    #     fill!(@view(u[3:nx-2,j]), h_t * v[3:nx-2,j-1] + u[3:nx-2,j-1])
-    #     fill!(@view(u[2,j]), (2/5) * (2 * u[3,j] - 0.5 * u[4,j]))
-    #     fill!(@view(u[nx-1,j]), (2/5) * (2 * u[nx-2,j] - 0.5 * u[nx-3,j]))
+    # @time @inbounds for j = 2:nt
+    #     v[3:nx-2,j] = (1-h_t) * v[3:nx-2,j-1] + h_t/(h_x^4) * B * u[:,j-1] + h_t * F[3:nx-2,j]
+    #     u[3:nx-2,j] = h_t * v[3:nx-2,j-1] + u[3:nx-2,j-1]
+    #     u[2,j] = (2/5) * (2 * u[3,j] - 0.5 * u[4,j])
+    #     u[nx-1,j] = (2/5) * (2 * u[nx-2,j] - 0.5 * u[nx-3,j])
     # end
+    # * @view版本
+    @time @inbounds for j = 2:nt
+        @view(v[3:nx-2,j]) .= (1-h_t) * v[3:nx-2,j-1] + h_t/(h_x^4) * B * u[:,j-1] + h_t * F[3:nx-2,j]
+        @view(u[3:nx-2,j]) .= h_t * v[3:nx-2,j-1] + u[3:nx-2,j-1]
+        @view(u[2,j]) .= (2/5) * (2 * u[3,j] - 0.5 * u[4,j])
+        @view(u[nx-1,j]) .= (2/5) * (2 * u[nx-2,j] - 0.5 * u[nx-3,j])
+    end
 
     return 0
 end
