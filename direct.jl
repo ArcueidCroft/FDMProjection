@@ -21,7 +21,7 @@ function Mainf()
     ll::Float64 = 2.93 # 燃料棒长度 
     tt::Float64 = 10 # 终止时间
     nx::Int = 31; 
-    nt::Int = 1000001 
+    nt::Int = 1000001
     h_x::Float64 = ll/(nx-1);
     h_t::Float64 = tt/(nt-1)
     x = (0:h_x:ll)';t = (0:h_t:tt)' # x与t方向的网格划分
