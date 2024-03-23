@@ -1,0 +1,102 @@
+% \usepackage[UTF8]{ctex}
+\documentclass[UTF8]{ctexbook}
+\usepackage{amsmath}
+% \usepackage{a4}
+\title{有限差分法笔记}
+\author{Arcueid}
+\begin{document}
+\maketitle
+\section*{2024-3-23}
+主要是针对空间离散进行隐式构造，元式
+\begin{align}
+    \frac{\partial^4 d_1 (x_j, t_k)}{\partial x^4} &= \frac{1}{h^4 _x}(
+        u^k _{j+2}-4u^k _{j+1}+6u^k _j-4u^k _{j-1}+u^k _{j-2})
+\end{align}
+
+记号
+\begin{align}
+    d_1(x,t) &= u\\
+    d_2(x, t) &= \partial u/\partial t =v
+\end{align}
+
+方程：
+\begin{align}
+    u_{tt}+u_t = f-u_{xxxx}
+\end{align}
+
+方程组：
+\begin{align}
+    v_t &= f-v-u_{xxxx}\\
+    u_t &= v
+\end{align}
+\subsection{方程组隐格式}
+(5)显格式：
+\begin{align}
+    \frac{v^{k+1}_j - v^k _j}{h_t}=f_j^k-v_j^k-\left(
+        \frac{u^k _{j+2}-4u^k _{j+1}+6u^k _j-4u^k _{j-1}+u^k _{j-2}}{h_x^4}\right)
+\end{align}
+
+令右端中空间差分项为$u^k = (u^{k+1}+u^k)/2$
+得到一个可能的隐格式：
+\begin{align}
+    &\frac{v^{k+1}_j - v^k _j}{h_t}=f_j^k-v_j^k-\\
+    &\frac{1}{2h^4_x}\left(
+        u^{k+1}_{j+2}+u^{k}_{j+2}
+        -4u^{k+1}_{j+1}-4u^{k}_{j+1}
+        + 6u^{k+1}_j+ 6u^{k}_j 
+        - 4u^{k+1}_{j-1} - 4u^{k}_{j-1}
+        + u^{k+1}_{j-2}+ u^{k}_{j-2}
+        \right)\\
+    &\frac{u^{k+1}_j - u^k _j}{h_t}=v^k_j
+\end{align}
+
+写作矩阵：
+\begin{align}
+    Q_v\mathbf{v}^{k+1}+Q_u\mathbf{u}^{k+1} = \mathbf{f}^k + \mathbf{u}^k+\mathbf{v}^k
+\end{align}
+\subsection{方程隐格式}
+(4)的隐格式
+\begin{align}
+    &\frac{u^{k+1}_j-2u^k_j+u^{k-1}_j}{h^2_t}+\frac{u^{k+1}_j-u^k_j}{h_t}\\
+    =&f_j^k-\frac{1}{2h^4_x}\left(
+        u^{k+1}_{j+2}+u^{k}_{j+2}
+        -4u^{k+1}_{j+1}-4u^{k}_{j+1}
+        + 6u^{k+1}_j+ 6u^{k}_j 
+        - 4u^{k+1}_{j-1} - 4u^{k}_{j-1}
+        + u^{k+1}_{j-2}+ u^{k}_{j-2}
+        \right)\\
+    =&f_j^k+\frac{1}{2h^4_x}\left(\delta^4 u^{k+1}+\delta^4 u^k\right)
+\end{align}
+
+化简：
+\begin{align}
+    u^{k+1}_j-2u^k_j+u^{k-1}_j+h_t u^{k+1}_j-h_t u^k_j &=h^2_t f^k_j+ \frac{h_t^2}{2h^4_x}(\delta^4 u^{k+1}+\delta^4 u^k)\\
+    (1+h_t)u^{k+1}_j-\frac{h^2_t}{2h^4_x}\delta^4 u^{k+1}&=
+    h^2_t f^k_j+(2+h_t)u^{k}_j+\frac{h^2_t}{2h^4_x}\delta^4 u^{k}-u^{k-1}_j
+\end{align}
+
+写作矩阵：
+\begin{align}
+    Q\mathbf{u}^{k+1}=\mathbf{f}^k+\tilde{Q}\mathbf{u}^k-\mathbf{u}^{k-1}
+\end{align}
+
+左侧展开：
+\begin{align}
+    (1+h_t)u^{k+1}_j -\frac{h_t^2}{2h^4_x}(
+        u^{k+1}_{j+2}
+    -4u^{k+1}_{j+1}
+    + 6u^{k+1}_j
+    - 4u^{k+1}_{j-1}
+    + u^{k+1}_{j-2})
+\end{align}
+
+右侧展开：
+\begin{align}
+    h^2_t f^k_j+(2+h_t)u^{k}_j+\frac{h^2_t}{2h^4_x}(        
+    u^{k}_{j+2}
+    -4u^{k}_{j+1}
+    + 6u^{k}_j
+    - 4u^{k}_{j-1}
+    + u^{k}_{j-2})-u^{k-1}_j
+\end{align}
+\end{document}
