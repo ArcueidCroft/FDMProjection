@@ -1,13 +1,13 @@
 # Fdb version 4
-["xdvipdfmx"] 1711161419 "notes.xdv" "notes.pdf" "notes" 1711161419 0
-  "notes.xdv" 1711161419 11124 0cc7a612fa600835d08f71fb418a808b "xelatex"
+["xdvipdfmx"] 1711243714 "notes.xdv" "notes.pdf" "notes" 1711243715 0
+  "notes.xdv" 1711243714 12548 3f529f1e4269136a1d1db3a6c528af77 "xelatex"
   (generated)
   "notes.pdf"
   (rewritten before read)
-["xelatex"] 1711161418 "/Users/arcueid/Desktop/Doctor Phase/fdm_npic/fdm_program_notes/notes.tex" "notes.xdv" "notes" 1711161419 0
+["xelatex"] 1711243714 "/Users/arcueid/Desktop/Doctor Phase/fdm_npic/fdm_program_notes/notes.tex" "notes.xdv" "notes" 1711243715 0
   "/System/Library/Fonts/Menlo.ttc" 1698965096 2156036 ec05dfca6821d85440da0899493002c3 ""
   "/System/Library/Fonts/PingFang.ttc" 1698965096 77913936 fbbb35ac2c1edab8242d84cc60900322 ""
-  "/Users/arcueid/Desktop/Doctor Phase/fdm_npic/fdm_program_notes/notes.tex" 1711161418 2691 59050fbf41a4e229d237faa605b54f83 ""
+  "/Users/arcueid/Desktop/Doctor Phase/fdm_npic/fdm_program_notes/notes.tex" 1711243714 3082 90da962e0669cd23dfc977e598242207 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -63,8 +63,8 @@
   "/usr/local/texlive/2023/texmf-dist/web2c/texmf.cnf" 1677365944 40745 87bb86a62d462f93a1efc6b0c65c872e ""
   "/usr/local/texlive/2023/texmf-var/web2c/xetex/xelatex.fmt" 1708702612 10502835 2b40fa583ca7d1109d686e9286981374 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "notes.aux" 1711161419 255 44365efa6fa755f7c14f4a0cda4c5e68 "xelatex"
-  "notes.tex" 1711161418 2691 59050fbf41a4e229d237faa605b54f83 ""
+  "notes.aux" 1711243714 356 cddf14f3b3e69bb15edb6be0395d7041 "xelatex"
+  "notes.tex" 1711243714 3082 90da962e0669cd23dfc977e598242207 ""
   (generated)
   "notes.aux"
   "notes.log"

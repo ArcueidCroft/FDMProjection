@@ -99,4 +99,21 @@
     - 4u^{k}_{j-1}
     + u^{k}_{j-2})-u^{k-1}_j
 \end{align}
+
+\subsection{更正}
+对$f$同样做隐格式,令$p = \frac{h_t^2}{2h^4_x}$
+
+左项：
+\begin{align}
+    pu^{k+1}_{j+2}-4pu^{k+1}_{j+1}
+    +(1+h_t+6p)u^{k+1}_j-4pu^{k+1}_{j-1}+pu^{k+1}_{j-2}
+    -\frac{h_t^2}{2}f^{k+1}_j
+\end{align}
+
+右项：
+\begin{align}
+    -pu^{k}_{j+2}+4pu^{k}_{j+1}
+    +(2+h_t-6p)u^{k}_j+4pu^{k}_{j-1}-pu^{k}_{j-2}
+    +\frac{h_t^2}{2}f^{k}_j-u^{k-1}_j
+\end{align}
 \end{document}
